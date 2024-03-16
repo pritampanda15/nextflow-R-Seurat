@@ -63,6 +63,8 @@ log.info """\
                 BiocParallel, DoubletFinder,presto); \\
                 adj_matrix <- Read10X_h5('${h5_file}',use.names = T);\\
                 seurat_obj <- CreateSeuratObject(counts = adj_matrix,project = 'TISCH2', min.cells = 3, min.features = 200);\\
+                seurat_obj[['percent.mt']] <- PercentageFeatureSet(seurat_obj, pattern = '^MT');\\
+                seurat_obj[['percent.rb']] <- PercentageFeatureSet(seurat_obj, pattern = '^RP[SL]');\\
                 saveRDS(seurat_obj, file='${h5_file}_seurat_results.rds');\\
                 adj.matrix <- NULL;\\
                 str(seurat_obj);\\
