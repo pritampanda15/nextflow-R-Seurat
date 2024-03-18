@@ -50,6 +50,7 @@ log.info """\
 
     output:
     file("${h5_file}_seurat_results.rds")
+    file("${h5_file}_vlnplot.png")
 
     script:
     h5_id = h5_file.baseName
@@ -65,6 +66,8 @@ log.info """\
                 seurat_obj <- CreateSeuratObject(counts = adj_matrix,project = 'TISCH2', min.cells = 3, min.features = 200);\\
                 seurat_obj[['percent.mt']] <- PercentageFeatureSet(seurat_obj, pattern = '^MT');\\
                 seurat_obj[['percent.rb']] <- PercentageFeatureSet(seurat_obj, pattern = '^RP[SL]');\\
+                plot1<- VlnPlot(object = seurat_obj, features = c('nFeature_RNA','nCount_RNA','percent.mt','percent.rb'), ncol = 4);\\
+                ggsave(filename ='${h5_file}_vlnplot.png', plot = plot1);\\
                 saveRDS(seurat_obj, file='${h5_file}_seurat_results.rds');\\
                 adj.matrix <- NULL;\\
                 str(seurat_obj);\\
@@ -75,7 +78,10 @@ log.info """\
                 seurat_obj <- FindNeighbors(seurat_obj, dims = 1:10);\\
                 seurat_obj <- FindClusters(seurat_obj, resolution = 0.5);\\
                 seurat_obj <- RunUMAP(seurat_obj, dims = 1:10);\\
+                seurat_obj <- RunTSNE(seurat_obj, dims = 1:10);\\
                 seurat_obj <- FindAllMarkers(seurat_obj, only.pos = T, min.pct = 0.25, logfc.threshold = 0.25)"
+
+
     """
     }
 workflow {
