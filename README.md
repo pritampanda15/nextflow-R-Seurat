@@ -5,3 +5,7 @@ This pipeline comprised of reading 10x h5 files to annotation using SingleR incl
 ```
 nextflow run script.nf logs/nextflow.log
 ```
+## You can specify continer image (docker) in the nextflow.config file
+```
+apptainer pull  --name pritampkp15-scrna-seurat-analysis.img  docker://pritampkp15/scrna-seurat-analysis
+```
