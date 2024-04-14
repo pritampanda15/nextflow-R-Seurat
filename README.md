@@ -3,7 +3,7 @@ This pipeline comprised of reading 10x h5 files to annotation using SingleR incl
 
 ## Make sure you have .h5 files inside a folder called data/
 ```
-nextflow run script.nf logs/nextflow.log
+nextflow -log logs/seurat.nf run nf_run.nf -c nextflow.config --with-report scrnaseq_seurat.html
 ```
 ## You can specify continer image (docker) in the nextflow.config file
 ```
