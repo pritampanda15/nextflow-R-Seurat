@@ -60,7 +60,7 @@ plot9<- ElbowPlot(object = seurat_obj)
 seurat_obj <- FindNeighbors(seurat_obj, dims = 1:20)
 seurat_obj <- FindClusters(seurat_obj, resolution = 0.5)
 seurat_obj <- RunUMAP(seurat_obj, dims = 1:20, verbose = F)
-seurat_obj <- RunTSNE(seurat_obj, dims = 1:20, verbose = F)
+seurat_obj <- RunTSNE(seurat_obj, dims = 1:20, verbose = F,check_duplicates = FALSE)
 plot10 <- DimPlot(object = seurat_obj, label.size = 4,repel = T,label = T)
 
 output_prefix <- gsub('.h5', '', h5_file)
